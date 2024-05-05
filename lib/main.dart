@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Codinggo',
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xF5F5F5F5),
+        scaffoldBackgroundColor: Color(0xFBFBFBFB),
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 255, 127, 63)),
         datePickerTheme: const DatePickerThemeData(
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/login": (context) => LoginPage(),
         "/home": (context) => HomePage(),
-        "/detailCource": (context) => DetailCource(), 
+        "/detailCource": (context) => DetailCource(),
         "/notification_detail": (context) => NotificationDetails(),
       },
     );
