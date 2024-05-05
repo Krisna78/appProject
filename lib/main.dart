@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_team_3/Auth/login_page.dart';
 import 'package:project_team_3/controllers/global.dart';
+import 'package:project_team_3/home/cources/detailCource.dart';
 import 'package:project_team_3/home/home_page.dart';
 import 'package:project_team_3/home/notifications_details.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/login": (context) => LoginPage(),
         "/home": (context) => HomePage(),
+        "/detailCource": (context) => DetailCource(), 
         "/notification_detail": (context) => NotificationDetails(),
       },
     );

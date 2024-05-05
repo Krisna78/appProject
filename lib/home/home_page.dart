@@ -144,7 +144,26 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-                CardCource(),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                        height: 320,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 6,
+                          itemBuilder: (context, index) {
+                            return CardCource(
+                              nameCource: "Basic HTML",
+                              price: "100.000",
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ],
