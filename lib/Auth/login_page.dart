@@ -4,7 +4,6 @@ import 'package:project_team_3/component/textfield.dart';
 import 'package:project_team_3/component/textfield_password.dart';
 import 'package:project_team_3/Auth/register_page.dart';
 import 'package:project_team_3/controllers/AuthController.dart';
-import 'package:project_team_3/models/users.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends GetView<AuthController> {

@@ -11,9 +11,7 @@ class NotificationDetails extends StatelessWidget {
         title: const Text("Notifications"),
       ),
       body: SafeArea(
-        child: ListView(
-          
-        ),
+        child: ListView(),
       ),
     );
   }

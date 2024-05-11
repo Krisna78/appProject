@@ -30,7 +30,8 @@ class TextFieldPage extends StatelessWidget {
                 borderSide: BorderSide(color: Colors.red),
               ),
               enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white)),
+                  borderSide:
+                      BorderSide(color: Color.fromARGB(255, 255, 127, 63))),
               focusedBorder: const OutlineInputBorder(
                   borderSide:
                       BorderSide(color: Color.fromARGB(255, 255, 127, 63))),

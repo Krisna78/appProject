@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -7,26 +8,25 @@ import 'package:project_team_3/component/small_card.dart';
 import 'package:project_team_3/Auth/login_page.dart';
 import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
-import 'package:project_team_3/home/updateProfile.dart';
+import 'package:project_team_3/home/profiles/updateProfile.dart';
 import 'package:project_team_3/models/users.dart';
 
 class ProfileUsers extends StatefulWidget {
-  final int? id;
+  final int id;
   final String? username;
-
+  final String? email;
   ProfileUsers({
     super.key,
-    this.id,
+    required this.id,
     this.username,
+    this.email,
   });
-
   @override
   State<ProfileUsers> createState() => _ProfileUsersState();
 }
 
 class _ProfileUsersState extends State<ProfileUsers> {
-  final authControl = Get.find<AuthController>();
-
+  final profilControl = Get.find<UpdateProfile>();
   void _showMessageDialog(BuildContext context) {
     AwesomeDialog(
       context: context,
@@ -49,54 +49,60 @@ class _ProfileUsersState extends State<ProfileUsers> {
           children: [
             SizedBox(height: 55),
             // * Username Card * //
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade500,
-                      blurRadius: 4,
-                      offset: Offset(0, 0.5),
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color.fromARGB(255, 255, 255, 255)),
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey,
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${widget.username}",
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+            GestureDetector(
+              onTap: () {
+                // Get.to(() => DetailProfile(id: widget.id));
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade500,
+                        blurRadius: 4,
+                        offset: Offset(0, 0.5),
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromARGB(255, 255, 255, 255)),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${widget.username}",
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text(
-                          "${widget.username}",
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
+                          Text(
+                            "${widget.id}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 10),
+            // * End Username Card * //
             // * General Card * //
             Container(
               margin: EdgeInsets.symmetric(horizontal: 15),
@@ -128,7 +134,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UpdateProfileForm(),
+                          builder: (context) => UpdateProfileForm(id: widget.id,),
                         ),
                       );
                     },
@@ -153,20 +159,23 @@ class _ProfileUsersState extends State<ProfileUsers> {
             ),
             const SizedBox(height: 16),
             // * SignOut Button * //
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade500,
-                  blurRadius: 4,
-                  offset: Offset(0, 0.5),
-                ),
-              ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: GestureDetector(
-                onTap: () {
-                  _showMessageDialog(context);
-                },
+            GestureDetector(
+              onTap: () {
+                _showMessageDialog(context);
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade500,
+                        blurRadius: 4,
+                        offset: Offset(0, 0.5),
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)),
                 child: const Padding(
                   padding: const EdgeInsets.all(8),
                   child: Row(

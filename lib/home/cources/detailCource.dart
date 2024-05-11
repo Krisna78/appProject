@@ -6,7 +6,11 @@ import 'package:project_team_3/home/cources/descriptionCource.dart';
 import 'package:project_team_3/home/cources/materiCource.dart';
 
 class DetailCource extends StatefulWidget {
-  const DetailCource({super.key});
+  final int id_cource;
+  DetailCource({
+    super.key,
+    required this.id_cource,
+  });
 
   @override
   State<DetailCource> createState() => _DetailCourceState();
@@ -18,10 +22,13 @@ class _DetailCourceState extends State<DetailCource> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text("Data1"),
+            Icon(
+              Icons.search,
+              size: 30,
+            ),
             SizedBox(
               width: 10,
             ),
@@ -50,6 +57,7 @@ class _DetailCourceState extends State<DetailCource> {
                     )
                   ],
                 ),
+                child: Image.asset("assets/images/logo_biru2.png"),
               ),
               SizedBox(height: 10),
               Text(
@@ -183,7 +191,7 @@ class _DetailCourceState extends State<DetailCource> {
                     return CommentCource();
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

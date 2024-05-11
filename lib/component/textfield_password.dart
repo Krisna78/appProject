@@ -31,7 +31,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             borderSide: BorderSide(color: Colors.red),
           ),
           enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white)),
+              borderSide: BorderSide(color: Color.fromARGB(255, 255, 127, 63))),
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Color.fromARGB(255, 255, 127, 63))),
           focusedErrorBorder: OutlineInputBorder(
@@ -55,8 +55,8 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "Mohon untuk mengisi ${widget.hintText}";
-          } else if (value.length < 6) {
-            return "Isi tidak boleh kurang dari 6 karakter";
+          } else if (value.length < 8) {
+            return "Isi tidak boleh kurang dari 8 karakter";
           }
           return null;
         },

@@ -1,21 +1,27 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_team_3/controllers/CourceController.dart';
+import 'package:project_team_3/home/cources/detailCource.dart';
 
 class CardCource extends StatelessWidget {
+  final int id;
   final String nameCource;
   final String? price;
-  const CardCource({
-    Key? key,
+  CardCource({
+    super.key,
+    required this.id,
     required this.nameCource,
     this.price,
   });
+  final courceController = Get.find<CourceController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, "/detailCource");
-        print("Harga $price");
+      onTap: () async {
+        Get.to(() => DetailCource(id_cource: id));
+        courceController.showData();
       },
       child: Container(
         padding: EdgeInsets.all(8),
@@ -99,7 +105,7 @@ class CardCource extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Rp.$price",
+                    "$price",
                     style: TextStyle(
                       fontSize: 21,
                       color: Colors.orange,

@@ -7,9 +7,10 @@ import 'package:project_team_3/home/profile.dart';
 import 'package:project_team_3/models/users.dart';
 
 class NavigationButtom extends StatefulWidget {
+  final int id;
   final String usernames;
 
-  const NavigationButtom({super.key, required this.usernames});
+  const NavigationButtom({super.key,required this.id,required this.usernames});
 
   @override
   State<NavigationButtom> createState() => _NavigationButtomState();
@@ -18,15 +19,18 @@ class NavigationButtom extends StatefulWidget {
 class _NavigationButtomState extends State<NavigationButtom> {
   int _selectedIndex = 0;
   late String _username;
+  late int _id;
+  late String _email;
   late List<Widget> tabs;
 
   void initState() {
     super.initState();
+    _id = widget.id;
     _username = widget.usernames;
     tabs = [
       HomePage(username: _username),
       NotificationDetails(),
-      ProfileUsers(username: _username),
+      ProfileUsers(id: _id,username: _username),
     ];
   }
 

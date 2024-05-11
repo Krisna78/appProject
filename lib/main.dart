@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/login": (context) => LoginPage(),
         "/home": (context) => HomePage(),
-        "/detailCource": (context) => DetailCource(),
+        // "/detailCource": (context) => DetailCource(),
         "/notification_detail": (context) => NotificationDetails(),
       },
     );

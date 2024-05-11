@@ -5,6 +5,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
+import 'package:project_team_3/Auth/login_page.dart';
 import 'package:project_team_3/component/buttom_navigation.dart';
 import 'package:project_team_3/models/users.dart';
 import 'package:project_team_3/models/sqlHelper.dart';
@@ -14,7 +15,8 @@ class AuthController extends GetxController {
   final String apiConnect = "192.168.1.15:80";
   final LocalDatabase localDatabase = LocalDatabase();
 
-  void _showMessageRegister(BuildContext context, String username,String email) {
+  void _showMessageRegister(
+      BuildContext context, String username, String email) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.success,
@@ -23,22 +25,23 @@ class AuthController extends GetxController {
       desc: 'Email : $email',
       btnCancelOnPress: () {},
       btnOkOnPress: () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, "/login", (Route<dynamic> route) => false);
+        Get.off(() => LoginPage());
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, "/login", (Route<dynamic> route) => false);
       },
     ).show();
   }
 
-  void _showMessageDialog(BuildContext context, String message) {
+  void _showMessageDialog(BuildContext context, String username,int id) {
     AwesomeDialog(
       context: context,
       dialogType: DialogType.success,
       animType: AnimType.topSlide,
-      title: 'Welcom back, $message',
+      title: 'Welcom back, $username',
       desc: 'See what new news right now you have!',
       btnCancelOnPress: () {},
       btnOkOnPress: () {
-        Get.off(() => NavigationButtom(usernames: message));
+        Get.off(() => NavigationButtom(usernames: username,id: id));
       },
     ).show();
   }
@@ -83,14 +86,16 @@ class AuthController extends GetxController {
       final responses = await http.post(Uri.parse(apiUrl),
           body: {'email': email, 'password': password});
       if (responses.statusCode == 200 || responses.statusCode == 201) {
-        final jsonData = json.decode(responses.body.toString()) as Map<String, dynamic>;
+        final jsonData =
+            json.decode(responses.body.toString()) as Map<String, dynamic>;
         Users data = Users.fromJson(jsonData['data']);
-        _showMessageDialog(context, data.username);
+        _showMessageDialog(context, data.username,data.id);
       } else {
         print('Failed to load data. Status code: ${responses.statusCode}');
       }
     } catch (e) {
       e.printError();
+      print("error");
     }
   }
 
@@ -103,7 +108,7 @@ class AuthController extends GetxController {
 
       final String apiUrl = "http://$apiConnect/api/apiTest";
       final response = await http.post(Uri.parse(apiUrl), body: {
-        'id': '$randomID',
+        'id_user': '$randomID',
         'username': username,
         'email': email,
         'password': password,
@@ -112,7 +117,7 @@ class AuthController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonData = json.decode(response.body);
         Users data = Users.fromJson(jsonData['data']);
-        _showMessageRegister(context,data.username,data.email);
+        _showMessageRegister(context, data.username, data.email);
       } else {
         print(response.statusCode);
       }
