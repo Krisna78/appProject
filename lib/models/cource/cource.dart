@@ -6,7 +6,6 @@ class Cource {
   bool? success;
   String? message;
   List<Datum>? data;
-
   Cource({this.success, this.message, this.data});
 
   factory Cource.fromMap(Map<String, dynamic> data) => Cource(
@@ -15,6 +14,7 @@ class Cource {
         data: (data['data'] as List<dynamic>?)
             ?.map((e) => Datum.fromMap(e as Map<String, dynamic>))
             .toList(),
+        // data: data['data'] == null ? null : Datum.fromMap(data['data'] as Map<String,dynamic>),
       );
 
   Map<String, dynamic> toMap() => {

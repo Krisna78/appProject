@@ -6,12 +6,7 @@ class Siswa {
   String? noTelp;
   String? alamat;
 
-  Siswa({
-    this.idSiswa,
-    this.noTelp,
-    this.alamat,
-    this.namaLengkap,
-  });
+  Siswa({this.idSiswa, this.noTelp, this.alamat, this.namaLengkap});
 
   factory Siswa.fromMap(Map<String, dynamic> data) => Siswa(
         idSiswa: data['id_siswa'] as int?,

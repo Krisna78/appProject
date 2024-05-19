@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project_team_3/component/button.dart';
 import 'package:project_team_3/component/datepicker.dart';
 import 'package:project_team_3/component/dropdown.dart';
@@ -9,23 +10,43 @@ import 'package:project_team_3/component/textfield.dart';
 import 'package:project_team_3/component/textfield_password.dart';
 import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/models/sqlHelper.dart';
-import 'package:project_team_3/models/users.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final userSignUpController = TextEditingController();
+
   final emailSignUpController = TextEditingController();
+
   final passSignUPController = TextEditingController();
+
   final datePickerController = TextEditingController();
+
   final confirmPassSignUpController = TextEditingController();
+
   final genderSignUpController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
   final LocalDatabase localDatabase = LocalDatabase();
 
   final authControl = Get.find<AuthController>();
 
   List<String> dropdownOptions = ['Male', 'Female', 'No Gender'];
+
+  void deleteImageFromDevice() {
+    if (authControl.image.value != null) {
+      File imageFile = authControl.image.value!;
+      if (imageFile.existsSync()) {
+        imageFile.deleteSync();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +98,11 @@ class RegisterPage extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
+                  Obx(() {
+                    return authControl.image.value == null
+                        ? Text("No image selected")
+                        : Image.file(authControl.image.value!);
+                  }),
                   DatePicker(
                     controller: datePickerController,
                     hintText: "Date Birth",
@@ -98,6 +124,18 @@ class RegisterPage extends StatelessWidget {
                     height: 30,
                   ),
                   MyButton(
+                      onTap: () async {
+                        final pickedFile = await ImagePicker()
+                            .pickImage(source: ImageSource.gallery);
+                        if (pickedFile != null) {
+                          // Mengirim file gambar ke controller
+                          authControl.setImage(File(pickedFile.path));
+                        } else {
+                          print('No image selected.');
+                        }
+                      },
+                      nameBtn: "Upload Image"),
+                  MyButton(
                     nameBtn: "Sign Up",
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
@@ -109,20 +147,12 @@ class RegisterPage extends StatelessWidget {
                         } else {
                           jns = "laki-laki";
                         }
-                        // Users newUser = Users(
-                        //   username: userSignUpController.text,
-                        //   email: emailSignUpController.text,
-                        //   password: passSignUPController.text,
-                        //   jenis_kelamin: jns,
-                        // );
-                        // LocalDatabase().insertData(newUser);
                         authControl.register(
                             userSignUpController.text,
                             emailSignUpController.text,
                             passSignUPController.text,
                             jns,
                             context);
-                        // showAwesomeDialog(context, userSignUpController.text);
                       }
                     },
                   ),

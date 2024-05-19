@@ -6,7 +6,6 @@ class Data {
   int? idUser;
   String? username;
   String? email;
-  String? image;
   String? jenisKelamin;
   Siswa? siswa;
 
@@ -14,7 +13,6 @@ class Data {
     this.idUser,
     this.username,
     this.email,
-    this.image,
     this.jenisKelamin,
     this.siswa,
   });
@@ -22,7 +20,6 @@ class Data {
   factory Data.fromMap(Map<String, dynamic> data) => Data(
         idUser: data['id_user'] as int?,
         username: data['username'] as String?,
-        image: data['image'] as String?,
         email: data['email'] as String?,
         jenisKelamin: data['jenis_kelamin'] as String?,
         siswa: data['siswa'] == null
@@ -33,7 +30,6 @@ class Data {
   Map<String, dynamic> toMap() => {
         'id_user': idUser,
         'username': username,
-        'image': image,
         'email': email,
         'jenis_kelamin': jenisKelamin,
         'siswa': siswa?.toMap(),

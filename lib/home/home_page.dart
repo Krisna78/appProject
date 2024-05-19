@@ -182,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                                         id: datum.idCource!,
                                         nameCource: datum.nameCource!,
                                         price: formatter.format(datum.price),
+                                        width: 230,
                                       );
                                     },
                                   );

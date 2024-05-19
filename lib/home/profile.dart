@@ -3,23 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:project_team_3/component/button.dart';
 import 'package:project_team_3/component/small_card.dart';
-import 'package:project_team_3/Auth/login_page.dart';
-import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
+import 'package:project_team_3/home/classroom/class_cource.dart';
 import 'package:project_team_3/home/profiles/updateProfile.dart';
 import 'package:project_team_3/models/users.dart';
 
 class ProfileUsers extends StatefulWidget {
   final int id;
-  final String? username;
-  final String? email;
+  final String username;
+  final Users user;
   ProfileUsers({
     super.key,
     required this.id,
-    this.username,
-    this.email,
+    required this.username,
+    required this.user,
   });
   @override
   State<ProfileUsers> createState() => _ProfileUsersState();
@@ -72,7 +70,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
                     children: [
                       CircleAvatar(
                         radius: 30,
-                        backgroundColor: Colors.grey,
+                        backgroundImage: NetworkImage(widget.user.image),
                       ),
                       const SizedBox(
                         width: 15,
@@ -81,14 +79,14 @@ class _ProfileUsersState extends State<ProfileUsers> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${widget.username}",
+                            widget.user.username,
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            "${widget.id}",
+                            widget.user.email,
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -131,12 +129,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
                     detailTitle: "Ubah Profile, Nomer Telp atau Avatar",
                     iconProfile: Icon(Icons.person),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UpdateProfileForm(id: widget.id,),
-                        ),
-                      );
+                      Get.to(() => UpdateProfileForm(id: widget.id));
                     },
                   ),
                   SizedBox(height: 10),
@@ -151,7 +144,9 @@ class _ProfileUsersState extends State<ProfileUsers> {
                     title: "Kelas Saya",
                     detailTitle: "Lihat kelas yang anda lakukan saat ini",
                     iconProfile: Icon(Icons.class_rounded),
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => ClassCource());
+                    },
                   ),
                   const SizedBox(height: 10),
                 ],

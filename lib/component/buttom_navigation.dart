@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
+import 'package:project_team_3/home/cource_page.dart';
 import 'package:project_team_3/home/home_page.dart';
 import 'package:project_team_3/home/notifications_details.dart';
 import 'package:project_team_3/home/profile.dart';
@@ -8,29 +11,32 @@ import 'package:project_team_3/models/users.dart';
 
 class NavigationButtom extends StatefulWidget {
   final int id;
-  final String usernames;
+  final Users? user;
 
-  const NavigationButtom({super.key,required this.id,required this.usernames});
-
+  NavigationButtom({
+    super.key,
+    required this.id,
+    this.user,
+  });
   @override
   State<NavigationButtom> createState() => _NavigationButtomState();
 }
 
 class _NavigationButtomState extends State<NavigationButtom> {
   int _selectedIndex = 0;
-  late String _username;
   late int _id;
-  late String _email;
   late List<Widget> tabs;
+  late String data;
 
   void initState() {
     super.initState();
     _id = widget.id;
-    _username = widget.usernames;
+    data = widget.user!.image;
     tabs = [
-      HomePage(username: _username),
-      NotificationDetails(),
-      ProfileUsers(id: _id,username: _username),
+      HomePage(username: widget.user!.username),
+      CourcePage(),
+      ProfileUsers(
+          id: _id, username: widget.user!.username, user: widget.user!),
     ];
   }
 

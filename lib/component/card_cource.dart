@@ -8,11 +8,13 @@ class CardCource extends StatelessWidget {
   final int id;
   final String nameCource;
   final String? price;
+  final double? width;
   CardCource({
     super.key,
     required this.id,
     required this.nameCource,
     this.price,
+    this.width,
   });
   final courceController = Get.find<CourceController>();
 
@@ -20,14 +22,13 @@ class CardCource extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        Get.to(() => DetailCource(id_cource: id));
+        Get.to(() => DetailCourceView(id_cource: id,price: "$price",));
         courceController.showData();
       },
       child: Container(
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.only(top: 10, bottom: 14, left: 10, right: 10),
-        width: 250,
-        // height: 275,
+        width: width,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -113,7 +114,7 @@ class CardCource extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
