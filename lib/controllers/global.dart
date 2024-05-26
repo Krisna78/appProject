@@ -6,7 +6,7 @@ import 'package:project_team_3/controllers/updateProfileController.dart';
 class Global {
   static Future<void> init() async {
     Get.lazyPut(() => AuthController());
-    Get.put(CourceController());
+    Get.lazyPut(() => CourceController());
     Get.put(UpdateProfile());
   }
 }

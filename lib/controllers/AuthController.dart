@@ -8,14 +8,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project_team_3/Auth/login_page.dart';
 import 'package:project_team_3/component/buttom_navigation.dart';
 import 'package:project_team_3/models/users.dart';
+import 'package:project_team_3/controllers/connect.dart';
 import 'package:project_team_3/models/sqlHelper.dart';
 import 'package:http/http.dart' as http;
 
 class AuthController extends GetxController {
-  final String apiConnect = "192.168.1.11:80";
+  final String apiConnect = APINum;
   final LocalDatabase localDatabase = LocalDatabase();
 
   var image = Rx<File?>(null);
+  var isLoading = false.obs;
   final picker = ImagePicker();
 
   void setImage(File file) {
@@ -89,13 +91,13 @@ class AuthController extends GetxController {
 
   Future<void> login(
       String email, String password, BuildContext context) async {
+        isLoading.value = true;
     try {
       final String apiUrl = "http://$apiConnect/api/apiTest/login";
       final responses = await http.post(Uri.parse(apiUrl),
           body: {'email': email, 'password': password});
       if (responses.statusCode == 200 || responses.statusCode == 201) {
-        final jsonData =
-            json.decode(responses.body.toString()) as Map<String, dynamic>;
+        final jsonData = json.decode(responses.body.toString()) as Map<String, dynamic>;
         Users data = Users.fromJson(jsonData['data']);
         _showMessageDialog(context, data);
       } else {
@@ -104,11 +106,14 @@ class AuthController extends GetxController {
     } catch (e) {
       e.printError();
       print("error");
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<void> register(String username, String email, String password,
       String jenisKelamin, BuildContext context) async {
+        isLoading.value = true;
     try {
       Random random = new Random();
       int randomNumber = random.nextInt(100);
@@ -138,6 +143,8 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       e.printError();
+    } finally {
+      isLoading.value = false;
     }
   }
 }

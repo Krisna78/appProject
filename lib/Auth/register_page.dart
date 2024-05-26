@@ -60,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
                   const Text(
                     "Come and Join Us!",
                     style: TextStyle(
@@ -69,6 +69,18 @@ class _RegisterPageState extends State<RegisterPage> {
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 30),
+                  Obx(() {
+                    return CircleAvatar(
+                      radius: 60,
+                      backgroundImage: authControl.image.value != null
+                          ? FileImage(authControl.image.value!)
+                          : null,
+                      child: authControl.image.value == null
+                          ? Center(child: Text("No Image"))
+                          : null,
+                    );
+                  }),
+                  const SizedBox(height: 15),
                   TextFieldPage(
                     controller: userSignUpController,
                     hintText: "Username",
@@ -98,11 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Obx(() {
-                    return authControl.image.value == null
-                        ? Text("No image selected")
-                        : Image.file(authControl.image.value!);
-                  }),
                   DatePicker(
                     controller: datePickerController,
                     hintText: "Date Birth",
@@ -124,38 +131,45 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 30,
                   ),
                   MyButton(
-                      onTap: () async {
-                        final pickedFile = await ImagePicker()
-                            .pickImage(source: ImageSource.gallery);
-                        if (pickedFile != null) {
-                          // Mengirim file gambar ke controller
-                          authControl.setImage(File(pickedFile.path));
-                        } else {
-                          print('No image selected.');
-                        }
-                      },
-                      nameBtn: "Upload Image"),
-                  MyButton(
-                    nameBtn: "Sign Up",
                     onTap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        String? jns;
-                        if (genderSignUpController.text == "Male") {
-                          jns = "laki-laki";
-                        } else if (genderSignUpController.text == "Female") {
-                          jns = "perempuan";
-                        } else {
-                          jns = "laki-laki";
-                        }
-                        authControl.register(
-                            userSignUpController.text,
-                            emailSignUpController.text,
-                            passSignUPController.text,
-                            jns,
-                            context);
+                      final pickedFile = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      if (pickedFile != null) {
+                        // Mengirim file gambar ke controller
+                        authControl.setImage(File(pickedFile.path));
+                      } else {
+                        print('No image selected.');
                       }
                     },
+                    nameBtn: "Upload Image",
+                    isLoading: false,
                   ),
+                  const SizedBox(height: 15),
+                  Obx(() {
+                    return MyButton(
+                      nameBtn: "Sign Up",
+                      isLoading: authControl.isLoading.value,
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          String? jns;
+                          if (genderSignUpController.text == "Male") {
+                            jns = "laki-laki";
+                          } else if (genderSignUpController.text == "Female") {
+                            jns = "perempuan";
+                          } else {
+                            jns = "laki-laki";
+                          }
+                          authControl.register(
+                              userSignUpController.text,
+                              emailSignUpController.text,
+                              passSignUPController.text,
+                              jns,
+                              context);
+                        }
+                      },
+                    );
+                  }),
+                  const SizedBox(height: 15),
                 ],
               ),
             ),

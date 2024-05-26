@@ -4,11 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:project_team_3/component/card_cource.dart';
 import 'package:project_team_3/component/listHorizontal.dart';
 import 'package:project_team_3/controllers/CourceController.dart';
+import 'package:project_team_3/controllers/updateProfileController.dart';
 import 'package:project_team_3/home/notifications_details.dart';
 
 class HomePage extends StatefulWidget {
   final String? username;
   HomePage({super.key, this.username});
+  final profilControl = Get.find<UpdateProfile>();
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -56,16 +58,32 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           margin: const EdgeInsets.only(top: 10),
                           padding: const EdgeInsets.only(left: 3, bottom: 15),
-                          child: Text(
-                            "Hello, ${widget.username}",
-                            style: const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 1,
-                              wordSpacing: 2,
-                              color: Colors.white,
-                            ),
-                          ),
+                          child: Obx(() {
+                            if (widget.profilControl.username.value.isEmpty) {
+                              return Text(
+                              "Hello, ${widget.username}",
+                              style: const TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1,
+                                wordSpacing: 2,
+                                color: Colors.white,
+                              ),
+                            );
+                            } else {
+                              return Text(
+                              "Hello, ${widget.profilControl.username.value}",
+                              style: const TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1,
+                                wordSpacing: 2,
+                                color: Colors.white,
+                              ),
+                            );
+                            }
+                            
+                          }),
                         ),
                         IconButton(
                           onPressed: () {

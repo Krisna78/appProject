@@ -78,20 +78,44 @@ class _ProfileUsersState extends State<ProfileUsers> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.user.username,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            widget.user.email,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                          Obx(() {
+                            if (profilControl.username.value.isEmpty) {
+                              return Text(
+                                widget.user.username,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            } else {
+                              return Text(
+                                profilControl.username.value,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              );
+                            }
+                          }),
+                          Obx(() {
+                            if (profilControl.email.value.isEmpty) {
+                              return Text(
+                                widget.user.email,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              );
+                            } else {
+                              return Text(
+                                profilControl.email.value,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              );
+                            }
+                          }),
                         ],
                       )
                     ],

@@ -108,6 +108,7 @@ class ProfileView extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 MyButton(
+                  isLoading: false,
                   onTap: () async {
                     String gender;
                     if (genderController.text == "Male") {
@@ -188,12 +189,14 @@ class ProfileView extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
+                  isLoading: false,
                     onTap: () {
                       // Get.to();
                     },
                     nameBtn: "Lengkapi Data Diri"),
                 const SizedBox(height: 10),
                 MyButton(
+                  isLoading: false,
                     onTap: () async {
                       String gender;
                       if (genderController.text == "Male") {

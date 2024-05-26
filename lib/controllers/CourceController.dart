@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:project_team_3/controllers/connect.dart';
 import 'package:project_team_3/models/cource/cource.dart';
 import 'package:http/http.dart' as http;
 import 'package:project_team_3/models/detail_cource/detail_cource.dart';
 
 class CourceController extends GetxController {
-  final String apiConnect = "192.168.1.11:80";
+  final String apiConnect = APINum;
   Future<Cource> showData() async {
     try {
       final String apiUrl = "http://$apiConnect/api/apiCource";

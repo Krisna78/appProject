@@ -59,21 +59,18 @@ class LoginPage extends GetView<AuthController> {
                   const SizedBox(
                     height: 30,
                   ),
-                  MyButton(
+                  Obx(() {
+                    return MyButton(
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
-                          // Users userLogin = Users(
-                          //     email: emailSignInController.text,
-                          //     password: passwordSignInController.text);
-                          // var user = {
-                          //   "email" : emailSignInController,
-                          //   "password" : passwordSignInController,
-                          // };
                           authControl.login(emailSignInController.text,
                               passwordSignInController.text, context);
                         }
                       },
-                      nameBtn: "Sign In"),
+                      nameBtn: "Sign In",
+                      isLoading: authControl.isLoading.value,
+                    );
+                  }),
                   const SizedBox(
                     height: 35,
                   ),

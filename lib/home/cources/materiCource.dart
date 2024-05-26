@@ -34,8 +34,11 @@ class MateriCource extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "1.",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    "1",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -58,8 +61,11 @@ class MateriCource extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "2.",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    "2",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -82,8 +88,11 @@ class MateriCource extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "3.",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    "3",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
