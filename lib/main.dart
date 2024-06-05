@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_team_3/Auth/login_page.dart';
+import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/controllers/global.dart';
 import 'package:project_team_3/home/cources/detailCource.dart';
 import 'package:project_team_3/home/home_page.dart';
@@ -8,11 +9,12 @@ import 'package:get/get.dart';
 
 void main() {
   Global.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,18 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: /* LoginPage() */ FutureBuilder(
+        future: authController.checkLoginStatus(context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
+          } else {
+            return LoginPage();
+          }
+        },
+      ),
       routes: {
         "/login": (context) => LoginPage(),
         "/home": (context) => HomePage(),

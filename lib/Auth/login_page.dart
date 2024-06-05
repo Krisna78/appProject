@@ -34,7 +34,7 @@ class LoginPage extends GetView<AuthController> {
                     height: 40,
                   ),
                   const Text(
-                    "Sign In",
+                    "Login",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 28,
@@ -67,7 +67,7 @@ class LoginPage extends GetView<AuthController> {
                               passwordSignInController.text, context);
                         }
                       },
-                      nameBtn: "Sign In",
+                      nameBtn: "LOGIN",
                       isLoading: authControl.isLoading.value,
                     );
                   }),
@@ -102,18 +102,15 @@ class LoginPage extends GetView<AuthController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Not a member ?",
+                        "Belum Punya Akun? klik",
                         style: TextStyle(color: Colors.grey[700]),
-                      ),
-                      const SizedBox(
-                        width: 0,
                       ),
                       TextButton(
                         onPressed: () {
                           Get.to(() => RegisterPage());
                         },
                         child: const Text(
-                          "Register Now",
+                          "DAFTAR SEKARANG",
                           style: TextStyle(
                               color: Color.fromARGB(255, 255, 127, 63),
                               fontWeight: FontWeight.bold),

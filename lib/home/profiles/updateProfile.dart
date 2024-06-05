@@ -4,7 +4,7 @@ import 'package:project_team_3/controllers/updateProfileController.dart';
 import 'package:project_team_3/home/profiles/component/detail_profile.dart';
 
 class UpdateProfileForm extends StatelessWidget {
-  final int id;
+  final String id;
   final _formKey = GlobalKey<FormState>();
   final userController = TextEditingController();
   final emailController = TextEditingController();

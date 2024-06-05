@@ -4,12 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_team_3/controllers/connect.dart';
-import 'package:project_team_3/home/profile.dart';
-import 'package:project_team_3/models/cource/cource.dart';
 import 'package:project_team_3/models/profile/profile.dart';
-import 'package:project_team_3/models/profile/siswa.dart';
-import 'package:project_team_3/models/profile_siswa/profile_siswa.dart';
-import 'package:project_team_3/models/users.dart';
 import 'package:http/http.dart' as http;
 
 class UpdateProfile extends GetxController {
@@ -26,21 +21,17 @@ class UpdateProfile extends GetxController {
       title: 'Data Berhasil di update',
       // desc: 'Email : $email',
       btnCancelOnPress: () {},
-      btnOkOnPress: () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, "/login", (Route<dynamic> route) => false);
-      },
+      btnOkOnPress: () {},
     ).show();
   }
 
-  Future<void> updateProfile(ProfileSiswa profileSiswa, int id_data) async {
+  Future<void> updateProfile(Profile profileSiswa, String id_data) async {
     try {
       final String apiUrl = "http://$apiConnect/api/apiTest/$id_data";
       if (profileSiswa.data!.siswa == null) {
         final response = await http.post(Uri.parse(apiUrl), body: {
           "username": profileSiswa.data!.username,
           "email": profileSiswa.data!.email,
-          "jenis_kelamin": profileSiswa.data!.jenisKelamin,
         });
         if (response.statusCode == 200 || response.statusCode == 201) {
           final jsonData = jsonDecode(response.body);
@@ -52,7 +43,6 @@ class UpdateProfile extends GetxController {
           "username": profileSiswa.data!.username,
           "email": profileSiswa.data!.email,
           "nama_lengkap": profileSiswa.data!.siswa!.namaLengkap,
-          "jenis_kelamin": profileSiswa.data!.jenisKelamin,
           "no_telp": profileSiswa.data!.siswa!.noTelp,
           "alamat": profileSiswa.data!.siswa!.alamat,
         });
@@ -67,7 +57,7 @@ class UpdateProfile extends GetxController {
     }
   }
 
-  Future<Profile> showDataProfile(int id) async {
+  Future<Profile> showDataProfile(String id) async {
     try {
       final String apiUrl = "http://$apiConnect/api/apiTest/profile/$id";
       final response = await http.get(Uri.parse(apiUrl));
@@ -80,6 +70,23 @@ class UpdateProfile extends GetxController {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> updatePassword(
+      BuildContext context, String id, String newPass) async {
+    try {
+      final String apiUrl = "http://$apiConnect/api/apiTest/updatePassword/$id";
+      final response =
+          await http.post(Uri.parse(apiUrl), body: {"password": newPass});
+      final jsonData = json.decode(response.body);
+      if (jsonData["success"] == true) {
+        _showMessageUpdate(context);
+      } else {
+        print(jsonData["success"]);
+      }
+    } catch (e) {
+      throw Exception();
     }
   }
 }

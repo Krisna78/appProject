@@ -1,18 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:project_team_3/home/classroom/tutorial.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JadwalCource extends StatelessWidget {
   const JadwalCource({super.key});
-  // void _launchZoomMeeting() async {
-  //   const url = "http://www.google.com";
-  //   if (await canLaunchUrl(Uri.http(url))) {
-  //     await launchUrl(Uri.http(url));
-  //   } else {
-  //     print("Could not launch");
-  //   }
-  // }
+  void _launchZoomMeeting() async {
+    final Uri url = Uri.parse('https://www.google.com');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      print("Could not launch");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +70,17 @@ class JadwalCource extends StatelessWidget {
           ),
           SizedBox(height: 8),
           ElevatedButton.icon(
-            onPressed: () {}/*  _launchZoomMeeting */,
+            onPressed: () {
+              _launchZoomMeeting();
+              // Get.to(() => VideoTutorial());
+            },
             icon: Icon(
               Icons.link,
               color: Colors.white,
             ),
             style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(
-                    Color.fromARGB(255, 255, 127, 63))),
+                backgroundColor:
+                    WidgetStatePropertyAll(Color.fromARGB(255, 255, 127, 63))),
             label: const Text(
               "Get Link",
               style: TextStyle(

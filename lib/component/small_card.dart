@@ -33,24 +33,28 @@ class SmallCard extends StatelessWidget {
                 const SizedBox(
                   width: 14,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Text(
-                      detailTitle,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
+                      Text(
+                        detailTitle,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        overflow: TextOverflow.visible,
+                        softWrap: false,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

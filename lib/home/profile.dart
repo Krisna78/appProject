@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_team_3/component/small_card.dart';
+import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
 import 'package:project_team_3/home/classroom/class_cource.dart';
 import 'package:project_team_3/home/profiles/updateProfile.dart';
+import 'package:project_team_3/home/profiles/update_password.dart';
 import 'package:project_team_3/models/users.dart';
 
 class ProfileUsers extends StatefulWidget {
-  final int id;
+  final String id;
   final String username;
   final Users user;
   ProfileUsers({
@@ -25,19 +27,7 @@ class ProfileUsers extends StatefulWidget {
 
 class _ProfileUsersState extends State<ProfileUsers> {
   final profilControl = Get.find<UpdateProfile>();
-  void _showMessageDialog(BuildContext context) {
-    AwesomeDialog(
-      context: context,
-      dialogType: DialogType.question,
-      animType: AnimType.topSlide,
-      title: 'Are you sure want leave ?',
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, "/login", (Route<dynamic> route) => false);
-      },
-    ).show();
-  }
+  final authControl = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,48 +65,53 @@ class _ProfileUsersState extends State<ProfileUsers> {
                       const SizedBox(
                         width: 15,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Obx(() {
-                            if (profilControl.username.value.isEmpty) {
-                              return Text(
-                                widget.user.username,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              );
-                            } else {
-                              return Text(
-                                profilControl.username.value,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              );
-                            }
-                          }),
-                          Obx(() {
-                            if (profilControl.email.value.isEmpty) {
-                              return Text(
-                                widget.user.email,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              );
-                            } else {
-                              return Text(
-                                profilControl.email.value,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              );
-                            }
-                          }),
-                        ],
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Obx(() {
+                              if (profilControl.username.value.isEmpty) {
+                                return Text(
+                                  widget.user.name,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  softWrap: false,
+                                );
+                              } else {
+                                return Text(
+                                  profilControl.username.value,
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis),
+                                  softWrap: false,
+                                );
+                              }
+                            }),
+                            Obx(() {
+                              if (profilControl.email.value.isEmpty) {
+                                return Text(
+                                  widget.user.email,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                );
+                              } else {
+                                return Text(
+                                  profilControl.email.value,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                );
+                              }
+                            }),
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -127,7 +122,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
             // * End Username Card * //
             // * General Card * //
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: 10),
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
@@ -161,7 +156,9 @@ class _ProfileUsersState extends State<ProfileUsers> {
                     title: "Ubah Password",
                     detailTitle: "Ubah dan perkuat akun anda",
                     iconProfile: Icon(Icons.lock),
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(() => UpdatePassword(id: widget.id));
+                    },
                   ),
                   SizedBox(height: 10),
                   SmallCard(
@@ -180,7 +177,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
             // * SignOut Button * //
             GestureDetector(
               onTap: () {
-                _showMessageDialog(context);
+                authControl.logout(context);
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 15),

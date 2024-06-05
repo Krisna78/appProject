@@ -47,7 +47,7 @@ class TextFieldPage extends StatelessWidget {
                 return "Mohon untuk mengisi";
               } else if (value.length < 6) {
                 return "Harus lebih dari 6 karakter";
-              } else if (isEmailField && !isEmail(value)) {
+              } else if (isEmailField && !isEmail(value.trim())) {
                 return "Mohon untuk memasukkan Email anda";
               }
               return null;

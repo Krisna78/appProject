@@ -2,17 +2,15 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_team_3/component/button.dart';
-import 'package:project_team_3/component/datepicker.dart';
-import 'package:project_team_3/component/dropdown.dart';
 import 'package:project_team_3/component/textfield.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
-import 'package:project_team_3/models/profile_siswa/data.dart';
-import 'package:project_team_3/models/profile_siswa/profile_siswa.dart';
-import 'package:project_team_3/models/profile_siswa/siswa.dart';
+import 'package:project_team_3/models/profile/data.dart';
+import 'package:project_team_3/models/profile/profile.dart';
+import 'package:project_team_3/models/profile/siswa.dart';
 
 class ProfileView extends StatelessWidget {
   final List<String> listGender;
-  final int id;
+  final String id;
   ProfileView({super.key, required this.listGender, required this.id});
   final userController = TextEditingController();
   final emailController = TextEditingController();
@@ -48,13 +46,6 @@ class ProfileView extends StatelessWidget {
           userController.text = "${dataAPi.data!.username}";
           emailController.text = "${dataAPi.data!.email}";
           final images = dataAPi.data!.image;
-          if (dataAPi.data!.jenisKelamin == 'laki-laki') {
-            genderController.text = "Male";
-          } else if (dataAPi.data!.jenisKelamin == 'perempuan') {
-            genderController.text = "Female";
-          } else {
-            genderController.text = "No Gender";
-          }
           if (dataAPi.data!.siswa != null) {
             alamatController.text = "${dataAPi.data!.siswa.alamat}";
             noTelpController.text = "${dataAPi.data!.siswa.noTelp}";
@@ -92,30 +83,9 @@ class ProfileView extends StatelessWidget {
                     controller: namaLengkapController,
                     hintText: "Nama Lengkap"),
                 const SizedBox(height: 15),
-                DatePicker(
-                    controller: datePickerController,
-                    hintText: "Date Birth",
-                    onChanged: (DateTime pickedDate) {
-                      datePickerController.text = pickedDate.toString();
-                    }),
-                const SizedBox(height: 15),
-                CustomDropdown(
-                  options: listGender,
-                  selectedOption: listGender.first,
-                  onChanged: (String value) {
-                    genderController.text = value;
-                  },
-                ),
-                const SizedBox(height: 10),
                 MyButton(
                   isLoading: false,
                   onTap: () async {
-                    String gender;
-                    if (genderController.text == "Male") {
-                      gender = "laki-laki";
-                    } else {
-                      gender = "perempuan";
-                    }
                     Siswa siswas = Siswa(
                       alamat: alamatController.text,
                       noTelp: noTelpController.text,
@@ -123,11 +93,10 @@ class ProfileView extends StatelessWidget {
                     );
                     Data data = Data(
                       email: emailController.text,
-                      jenisKelamin: gender,
                       username: userController.text,
                       siswa: siswas,
                     );
-                    ProfileSiswa update = ProfileSiswa(
+                    Profile update = Profile(
                       data: data,
                     );
                     profilControl.updateProfile(update, id);
@@ -165,22 +134,6 @@ class ProfileView extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                DatePicker(
-                    controller: datePickerController,
-                    hintText: "Date Birth",
-                    onChanged: (DateTime pickedDate) {
-                      datePickerController.text = pickedDate.toString();
-                    }),
-                const SizedBox(
-                  height: 15,
-                ),
-                CustomDropdown(
-                  options: listGender,
-                  selectedOption: listGender.first,
-                  onChanged: (String value) {
-                    genderController.text = value;
-                  },
-                ),
                 Container(
                   height: 40,
                   margin: EdgeInsets.symmetric(horizontal: 20),
@@ -189,28 +142,21 @@ class ProfileView extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                  isLoading: false,
+                    isLoading: false,
                     onTap: () {
                       // Get.to();
                     },
                     nameBtn: "Lengkapi Data Diri"),
                 const SizedBox(height: 10),
                 MyButton(
-                  isLoading: false,
+                    isLoading: false,
                     onTap: () async {
-                      String gender;
-                      if (genderController.text == "Male") {
-                        gender = "laki-laki";
-                      } else {
-                        gender = "perempuan";
-                      }
                       Data data = Data(
                         email: emailController.text,
-                        jenisKelamin: gender,
                         username: userController.text,
                         siswa: null,
                       );
-                      ProfileSiswa update = ProfileSiswa(
+                      Profile update = Profile(
                         data: data,
                       );
                       profilControl.updateProfile(update, id);

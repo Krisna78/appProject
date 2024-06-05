@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_team_3/component/button.dart';
-import 'package:project_team_3/component/datepicker.dart';
-import 'package:project_team_3/component/dropdown.dart';
 import 'package:project_team_3/component/textfield.dart';
 import 'package:project_team_3/component/textfield_password.dart';
 import 'package:project_team_3/controllers/AuthController.dart';
-import 'package:project_team_3/models/sqlHelper.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -20,21 +17,10 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final userSignUpController = TextEditingController();
-
   final emailSignUpController = TextEditingController();
-
   final passSignUPController = TextEditingController();
-
-  final datePickerController = TextEditingController();
-
   final confirmPassSignUpController = TextEditingController();
-
-  final genderSignUpController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
-  final LocalDatabase localDatabase = LocalDatabase();
-
   final authControl = Get.find<AuthController>();
 
   List<String> dropdownOptions = ['Male', 'Female', 'No Gender'];
@@ -108,26 +94,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     hintText: "Confirm Password",
                   ),
                   const SizedBox(
-                    height: 15,
-                  ),
-                  DatePicker(
-                    controller: datePickerController,
-                    hintText: "Date Birth",
-                    onChanged: (DateTime pickedDate) {
-                      datePickerController.text = pickedDate.toString();
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  CustomDropdown(
-                    options: dropdownOptions,
-                    selectedOption: dropdownOptions.first,
-                    onChanged: (String value) {
-                      genderSignUpController.text = value;
-                    },
-                  ),
-                  const SizedBox(
                     height: 30,
                   ),
                   MyButton(
@@ -141,30 +107,30 @@ class _RegisterPageState extends State<RegisterPage> {
                         print('No image selected.');
                       }
                     },
-                    nameBtn: "Upload Image",
+                    nameBtn: "Unggah Foto",
                     isLoading: false,
                   ),
                   const SizedBox(height: 15),
                   Obx(() {
                     return MyButton(
-                      nameBtn: "Sign Up",
+                      nameBtn: "DAFTAR",
                       isLoading: authControl.isLoading.value,
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
-                          String? jns;
-                          if (genderSignUpController.text == "Male") {
-                            jns = "laki-laki";
-                          } else if (genderSignUpController.text == "Female") {
-                            jns = "perempuan";
+                          if (passSignUPController.text !=
+                              confirmPassSignUpController.text) {
+                            authControl.showFailDialog(
+                                context,
+                                "Password tidak sama",
+                                "Mohon untuk menyamakan password anda");
                           } else {
-                            jns = "laki-laki";
-                          }
-                          authControl.register(
+                            authControl.register(
                               userSignUpController.text,
                               emailSignUpController.text,
                               passSignUPController.text,
-                              jns,
-                              context);
+                              context,
+                            );
+                          }
                         }
                       },
                     );

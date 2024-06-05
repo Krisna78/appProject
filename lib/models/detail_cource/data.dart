@@ -3,15 +3,17 @@ import 'dart:convert';
 class Data {
   int? idCource;
   String? nameCource;
+  String? image;
   int? price;
   String? level;
 
-  Data({this.idCource, this.nameCource, this.price, this.level});
+  Data({this.idCource, this.nameCource, this.price, this.level,this.image});
 
   factory Data.fromMap(Map<String, dynamic> data) => Data(
         idCource: data['id_cource'] as int?,
         nameCource: data['name_cource'] as String?,
         price: data['price'] as int?,
+        image: data['image'] as String?,
         level: data['level'] as String?,
       );
 
@@ -19,6 +21,7 @@ class Data {
         'id_cource': idCource,
         'name_cource': nameCource,
         'price': price,
+        'image' : image,
         'level': level,
       };
 

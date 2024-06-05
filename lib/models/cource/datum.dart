@@ -1,25 +1,43 @@
 import 'dart:convert';
 
 class Datum {
-  int? idCource;
-  String? nameCource;
+  String? idCource;
+  String? tutorId;
+  String? title;
+  String? deskripsi;
+  String? thumb;
+  String? status;
+  String? image;
   int? price;
-  String? level;
+  String? tingkatan;
+  String? jenis;
 
-  Datum({this.idCource, this.nameCource, this.price, this.level});
+  Datum({this.idCource, this.title, this.price, this.jenis, this.image,this.status,this.deskripsi,this.thumb,this.tingkatan,this.tutorId});
 
   factory Datum.fromMap(Map<String, dynamic> data) => Datum(
-        idCource: data['id_cource'] as int?,
-        nameCource: data['name_cource'] as String?,
+        idCource: data['id'] as String?,
+        tutorId: data['tutor_id'] as String?,
+        title: data['name_cource'] as String?,
+        deskripsi: data["description"] as String?,
+        thumb: data['thumb'] as String?,
         price: data['price'] as int?,
-        level: data['level'] as String?,
+        image: data['image'] as String?,
+        status: data['status'] as String?,
+        tingkatan: data["tingkatan"] as String?,
+        jenis: data['jenis'] as String?,
       );
 
   Map<String, dynamic> toMap() => {
         'id_cource': idCource,
-        'name_cource': nameCource,
+        'title': title,
+        'tutor_id' : tutorId,
+        'description' : deskripsi,
+        'thumb' : thumb,
         'price': price,
-        'level': level,
+        'image': image,
+        'status' : status,
+        'tingkatan' : tingkatan,
+        'jenis': jenis,
       };
 
   /// `dart:convert`

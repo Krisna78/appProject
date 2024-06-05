@@ -1,22 +1,17 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:project_team_3/controllers/AuthController.dart';
-import 'package:project_team_3/controllers/updateProfileController.dart';
-import 'package:project_team_3/home/cource_page.dart';
+import 'package:project_team_3/home/class_room_page.dart';
 import 'package:project_team_3/home/home_page.dart';
-import 'package:project_team_3/home/notifications_details.dart';
 import 'package:project_team_3/home/profile.dart';
 import 'package:project_team_3/models/users.dart';
 
 class NavigationButtom extends StatefulWidget {
-  final int id;
-  final Users? user;
+  final String id;
+  final Users user;
 
   NavigationButtom({
     super.key,
     required this.id,
-    this.user,
+    required this.user,
   });
   @override
   State<NavigationButtom> createState() => _NavigationButtomState();
@@ -24,7 +19,7 @@ class NavigationButtom extends StatefulWidget {
 
 class _NavigationButtomState extends State<NavigationButtom> {
   int _selectedIndex = 0;
-  late int _id;
+  late String _id;
   late List<Widget> tabs;
   late String data;
 
@@ -33,10 +28,10 @@ class _NavigationButtomState extends State<NavigationButtom> {
     _id = widget.id;
     data = widget.user!.image;
     tabs = [
-      HomePage(username: widget.user!.username),
-      CourcePage(),
+      HomePage(username: widget.user!.name),
+      ClassroomPage(),
       ProfileUsers(
-          id: _id, username: widget.user!.username, user: widget.user!),
+          id: _id, username: widget.user!.name, user: widget.user!),
     ];
   }
 
@@ -54,11 +49,11 @@ class _NavigationButtomState extends State<NavigationButtom> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 27),
-            label: "Home",
+            label: "Beranda",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.library_books, size: 27),
-            label: "Courses",
+            label: "Kelas",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_3_outlined, size: 27),

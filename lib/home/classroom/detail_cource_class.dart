@@ -70,7 +70,7 @@ class _DetailCourceViewState extends State<DetailCourceView> {
               ),
               SizedBox(height: 10),
               Text(
-                "",
+                "Basic HTML",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
@@ -136,71 +136,74 @@ class _DetailCourceViewState extends State<DetailCourceView> {
               SizedBox(
                 height: 25,
               ),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        contentIndex = 0;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: contentIndex == 0
-                          ? Color.fromARGB(255, 255, 127, 63)
-                          : Color.fromARGB(255, 53, 109, 192),
-                    ),
-                    child: Text(
-                      "Materi",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          contentIndex = 0;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: contentIndex == 0
+                            ? Color.fromARGB(255, 255, 127, 63)
+                            : Color.fromARGB(255, 53, 109, 192),
+                      ),
+                      child: Text(
+                        "Materi",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 12),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        contentIndex = 2;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: contentIndex == 2
-                          ? Color.fromARGB(255, 255, 127, 63)
-                          : Color.fromARGB(255, 53, 109, 192),
-                    ),
-                    child: Text(
-                      "Jadwal",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    SizedBox(width: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          contentIndex = 2;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: contentIndex == 2
+                            ? Color.fromARGB(255, 255, 127, 63)
+                            : Color.fromARGB(255, 53, 109, 192),
+                      ),
+                      child: Text(
+                        "Jadwal",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 12),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        contentIndex = 1;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: contentIndex == 1
-                          ? Color.fromARGB(255, 255, 127, 63)
-                          : Color.fromARGB(255, 53, 109, 192),
-                    ),
-                    child: Text(
-                      "Desciption",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    SizedBox(width: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          contentIndex = 1;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: contentIndex == 1
+                            ? Color.fromARGB(255, 255, 127, 63)
+                            : Color.fromARGB(255, 53, 109, 192),
+                      ),
+                      child: Text(
+                        "Desciption",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 12),
               if (contentIndex == 0)

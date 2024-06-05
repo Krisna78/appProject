@@ -7,7 +7,6 @@ class Data {
   String? username;
   String? email;
   String? image;
-  String? jenisKelamin;
   Siswa? siswa;
 
   Data({
@@ -15,7 +14,6 @@ class Data {
     this.username,
     this.email,
     this.image,
-    this.jenisKelamin,
     this.siswa,
   });
 
@@ -24,7 +22,6 @@ class Data {
         username: data['username'] as String?,
         image: data['image'] as String?,
         email: data['email'] as String?,
-        jenisKelamin: data['jenis_kelamin'] as String?,
         siswa: data['siswa'] == null
             ? null
             : Siswa.fromMap(data['siswa'] as Map<String, dynamic>),
@@ -35,7 +32,6 @@ class Data {
         'username': username,
         'image': image,
         'email': email,
-        'jenis_kelamin': jenisKelamin,
         'siswa': siswa?.toMap(),
       };
 
