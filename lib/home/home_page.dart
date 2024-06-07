@@ -288,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                                               BorderRadius.circular(8),
                                           child: CachedNetworkImage(
                                             imageUrl:
-                                                "http://192.168.43.151/uploaded_files/${datum.thumb}",
+                                                "http://192.168.1.8/uploaded_files/${datum.thumb}",
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *
@@ -312,7 +312,8 @@ class _HomePageState extends State<HomePage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "${datum.title}",
+                                                datum.title ??
+                                                    "Judul tidak tersedia",
                                                 style: const TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
@@ -335,7 +336,7 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 ],
                                               ),
-                                              const Row(
+                                              Row(
                                                 children: [
                                                   Column(
                                                     crossAxisAlignment:
@@ -343,7 +344,8 @@ class _HomePageState extends State<HomePage> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        "Budi Handayani",
+                                                        datum.tutor?.name ??
+                                                            "Nama tutor tidak tersedia",
                                                         style: TextStyle(
                                                           fontSize: 14,
                                                           fontWeight:
