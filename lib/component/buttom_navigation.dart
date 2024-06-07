@@ -57,7 +57,7 @@ class _NavigationButtomState extends State<NavigationButtom> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_3_outlined, size: 27),
-            label: "Profile",
+            label: "Profil",
           ),
         ],
         currentIndex: _selectedIndex,

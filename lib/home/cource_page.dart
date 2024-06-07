@@ -120,7 +120,7 @@ class _CourcePageState extends State<CourcePage> {
                               return GestureDetector(
                                 onTap: () async {
                                   Get.to(() => DetailCourceView(
-                                        id_cource: datum.idCource as int,
+                                        id_cource: "${datum.idCource}",
                                         price: formatter.format(datum.price),
                                       ));
                                 },

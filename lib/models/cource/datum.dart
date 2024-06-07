@@ -20,7 +20,7 @@ class Datum {
         title: data['name_cource'] as String?,
         deskripsi: data["description"] as String?,
         thumb: data['thumb'] as String?,
-        price: data['price'] as int?,
+        price: data['harga'] as int?,
         image: data['image'] as String?,
         status: data['status'] as String?,
         tingkatan: data["tingkatan"] as String?,
@@ -28,12 +28,12 @@ class Datum {
       );
 
   Map<String, dynamic> toMap() => {
-        'id_cource': idCource,
+        'id': idCource,
         'title': title,
         'tutor_id' : tutorId,
         'description' : deskripsi,
         'thumb' : thumb,
-        'price': price,
+        'harga': price,
         'image': image,
         'status' : status,
         'tingkatan' : tingkatan,

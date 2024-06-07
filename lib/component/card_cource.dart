@@ -5,7 +5,7 @@ import 'package:project_team_3/controllers/CourceController.dart';
 import 'package:project_team_3/home/cources/detailCource.dart';
 
 class CardCource extends StatelessWidget {
-  final int id;
+  final String id;
   final String nameCource;
   final String? price;
   final double? width;

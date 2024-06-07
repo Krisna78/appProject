@@ -6,6 +6,7 @@ class Cource {
   bool? success;
   String? message;
   List<Datum>? data;
+  
   Cource({this.success, this.message, this.data});
 
   factory Cource.fromMap(Map<String, dynamic> data) => Cource(

@@ -119,10 +119,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         if (_formKey.currentState!.validate()) {
                           if (passSignUPController.text !=
                               confirmPassSignUpController.text) {
-                            authControl.showFailDialog(
-                                context,
-                                "Password tidak sama",
-                                "Mohon untuk menyamakan password anda");
+                            authControl.showFailDialog(context, "Perhatian!",
+                                "Password dan Konfirmasi Password tidak sama");
                           } else {
                             authControl.register(
                               userSignUpController.text,

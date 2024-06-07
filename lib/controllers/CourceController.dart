@@ -15,6 +15,7 @@ class CourceController extends GetxController {
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         final cource = Cource.fromMap(jsonData);
+        print(cource);
         return cource;
       } else {
         print("Response Failed : ${response.statusCode}");
@@ -26,7 +27,7 @@ class CourceController extends GetxController {
     }
   }
 
-  Future<DetailCource> detailCource(int id) async {
+  Future<DetailCource> detailCource(String id) async {
     try {
       final String apiUrl = "http://$apiConnect/api/apiCource/$id";
       final response = await http.get(Uri.parse(apiUrl));

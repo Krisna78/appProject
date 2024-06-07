@@ -9,7 +9,7 @@ import 'package:project_team_3/home/cources/materiCource.dart';
 // import 'package:project_team_3/models/cource/cource.dart';
 
 class DetailCourceView extends StatefulWidget {
-  final int id_cource;
+  final String id_cource;
   final String price;
   DetailCourceView({
     super.key,

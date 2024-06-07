@@ -36,10 +36,9 @@ class _HomePageState extends State<HomePage> {
     decimalDigits: 0,
   );
   Future<Cource> getCourceFuture() {
-    if (isSearching && searchControl.text.isNotEmpty) {
+    if (isSearching) {
       return courceController.searchCource(searchControl.text);
     } else if (selectedCategory != null) {
-      print(selectedCategory != null && selectedCategory!.isNotEmpty);
       return courceController.searchCource(selectedCategory!);
     } else {
       return courceController.showData();
@@ -253,13 +252,14 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisSpacing: 0,
                                 childAspectRatio: 0.6,
                               ),
-                              itemCount: dataAPI.data!.length,
+                              // itemCount: dataAPI.data!.length,
+                              itemCount: 3,
                               itemBuilder: (context, index) {
                                 final datum = dataAPI.data![index];
                                 return GestureDetector(
                                   onTap: () async {
                                     Get.to(() => DetailCourceView(
-                                          id_cource: datum.idCource as int,
+                                          id_cource: "${datum.idCource}",
                                           price: formatter.format(datum.price),
                                         ));
                                   },
@@ -287,7 +287,8 @@ class _HomePageState extends State<HomePage> {
                                           borderRadius:
                                               BorderRadius.circular(8),
                                           child: CachedNetworkImage(
-                                            imageUrl: "${datum.image}",
+                                            imageUrl:
+                                                "http://192.168.43.151/uploaded_files/${datum.thumb}",
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *

@@ -50,8 +50,7 @@ class AuthController extends GetxController {
       context: context,
       dialogType: DialogType.success,
       animType: AnimType.topSlide,
-      title: 'Wow, Awesome ${user.name}',
-      desc: 'Email : ${user.email}',
+      title: 'Selamat Datang, ${user.name}',
       btnOkOnPress: () {
         Get.off(() => LoginPage());
       },
@@ -63,8 +62,7 @@ class AuthController extends GetxController {
       context: context,
       dialogType: DialogType.success,
       animType: AnimType.topSlide,
-      title: 'Welcom back, ${user.name}',
-      desc: 'See what new news right now you have!',
+      title: 'Selamat datang kembali, ${user.name}',
       btnOkOnPress: () {
         Get.off(() => NavigationButtom(
               user: user,

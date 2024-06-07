@@ -56,7 +56,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           if (value == null || value.isEmpty) {
             return "Mohon untuk mengisi ${widget.hintText}";
           } else if (value.length < 8) {
-            return "Isi tidak boleh kurang dari 8 karakter";
+            return "Password harus minimal 8 karakter";
           }
           return null;
         },

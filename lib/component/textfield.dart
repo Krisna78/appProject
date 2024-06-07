@@ -44,11 +44,11 @@ class TextFieldPage extends StatelessWidget {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Mohon untuk mengisi";
-              } else if (value.length < 6) {
-                return "Harus lebih dari 6 karakter";
+                return "Mohon isi bidang ini";
+              // } else if (value.length < 8) {
+              //   return "$hintText harus minimal 8 karakter";
               } else if (isEmailField && !isEmail(value.trim())) {
-                return "Mohon untuk memasukkan Email anda";
+                return "Format email harus menggunakan '@'";
               }
               return null;
             },
