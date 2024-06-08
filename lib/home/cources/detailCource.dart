@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -95,7 +96,7 @@ class _DetailCourceViewState extends State<DetailCourceView> {
               onPressed: () {},
               style: const ButtonStyle(
                 backgroundColor:
-                    MaterialStatePropertyAll(Color.fromARGB(255, 53, 109, 192)),
+                    WidgetStatePropertyAll(Color.fromARGB(255, 53, 109, 192)),
               ),
               child: Text(
                 "Beli",
@@ -131,11 +132,20 @@ class _DetailCourceViewState extends State<DetailCourceView> {
                   )
                 ],
               ),
-              child: Image.asset("assets/images/logo_biru2.png"),
+              child: CachedNetworkImage(
+                imageUrl:
+                    "http://192.168.1.8/uploaded_files/${courseData.data!.thumb}",
+                errorWidget: (context, url, error) {
+                  return Icon(Icons.error);
+                },
+                progressIndicatorBuilder: (context, url, progress) {
+                  return const Center(child: CircularProgressIndicator());
+                },
+              ),
             ),
             SizedBox(height: 10),
             Text(
-              "${courseData.data!.nameCource}",
+              "${courseData.data!.title}",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w600,
@@ -173,24 +183,35 @@ class _DetailCourceViewState extends State<DetailCourceView> {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/logo_biru2.png"),
                   maxRadius: 28,
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "http://192.168.1.8/uploaded_files/${courseData.data!.tutor.image}",
+                      fit: BoxFit.cover,
+                      width: 60,
+                      height: 60,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Budi Handayani",
+                      courseData.data!.tutor!.name,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      "Front End Web Developer",
+                      courseData.data!.tutor!.profession,
                       style: TextStyle(
                         fontSize: 14,
+                        color: Colors.grey,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -247,25 +268,28 @@ class _DetailCourceViewState extends State<DetailCourceView> {
               ],
             ),
             SizedBox(height: 12),
-            contentIndex == 0 ? MateriCource() : DescriptionCource(),
-            SizedBox(height: 20),
-            Text(
-              "Ulasan",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 20),
-            SizedBox(
-              height: 300,
-              child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return CommentCource();
-                },
-              ),
-            ),
+            contentIndex == 0
+                ? MateriCource(id: courseData.data!.idCource)
+                : DescriptionCource(
+                    valueDescription: courseData.data!.deskripsi),
+            // SizedBox(height: 20),
+            // Text(
+            //   "Ulasan",
+            //   style: TextStyle(
+            //     fontSize: 24,
+            //     fontWeight: FontWeight.w600,
+            //   ),
+            // ),
+            // SizedBox(height: 20),
+            // SizedBox(
+            //   height: 300,
+            //   child: ListView.builder(
+            //     itemCount: 2,
+            //     itemBuilder: (context, index) {
+            //       return CommentCource();
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

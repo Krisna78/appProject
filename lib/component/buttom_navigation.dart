@@ -29,9 +29,10 @@ class _NavigationButtomState extends State<NavigationButtom> {
     data = widget.user!.image;
     tabs = [
       HomePage(username: widget.user!.name),
-      ClassroomPage(),
-      ProfileUsers(
-          id: _id, username: widget.user!.name, user: widget.user!),
+      ClassroomPage(
+        id: _id,
+      ),
+      ProfileUsers(id: _id, username: widget.user!.name, user: widget.user!),
     ];
   }
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 class Datum {
   String? idCource;
   String? tutorId;
@@ -12,7 +13,18 @@ class Datum {
   String? jenis;
   Tutor? tutor;
 
-  Datum({this.idCource, this.title, this.price, this.jenis, this.image,this.status,this.deskripsi,this.thumb,this.tingkatan,this.tutorId, this.tutor});
+  Datum(
+      {this.idCource,
+      this.title,
+      this.price,
+      this.jenis,
+      this.image,
+      this.status,
+      this.deskripsi,
+      this.thumb,
+      this.tingkatan,
+      this.tutorId,
+      this.tutor});
 
   factory Datum.fromMap(Map<String, dynamic> data) => Datum(
         idCource: data['id'] as String?,
@@ -31,13 +43,13 @@ class Datum {
   Map<String, dynamic> toMap() => {
         'id': idCource,
         'title': title,
-        'tutor_id' : tutorId,
-        'description' : deskripsi,
-        'thumb' : thumb,
+        'tutor_id': tutorId,
+        'description': deskripsi,
+        'thumb': thumb,
         'harga': price,
         'image': image,
-        'status' : status,
-        'tingkatan' : tingkatan,
+        'status': status,
+        'tingkatan': tingkatan,
         'jenis': jenis,
         'tutor': tutor?.toMap(),
       };

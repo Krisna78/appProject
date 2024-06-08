@@ -4,14 +4,14 @@ import 'siswa.dart';
 
 class Data {
   int? idUser;
-  String? username;
+  String? name;
   String? email;
   String? image;
   Siswa? siswa;
 
   Data({
     this.idUser,
-    this.username,
+    this.name,
     this.email,
     this.image,
     this.siswa,
@@ -19,7 +19,7 @@ class Data {
 
   factory Data.fromMap(Map<String, dynamic> data) => Data(
         idUser: data['id_user'] as int?,
-        username: data['username'] as String?,
+        name: data['name'] as String?,
         image: data['image'] as String?,
         email: data['email'] as String?,
         siswa: data['siswa'] == null
@@ -29,7 +29,7 @@ class Data {
 
   Map<String, dynamic> toMap() => {
         'id_user': idUser,
-        'username': username,
+        'name': name,
         'image': image,
         'email': email,
         'siswa': siswa?.toMap(),

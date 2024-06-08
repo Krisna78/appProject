@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project_team_3/component/button.dart';
 import 'package:project_team_3/component/textfield.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
@@ -43,9 +46,10 @@ class ProfileView extends StatelessWidget {
           return Text("Error : ${snapshot.data}");
         } else {
           final dataAPi = snapshot.data!;
-          userController.text = "${dataAPi.data!.username}";
+          userController.text = "${dataAPi.data!.name}";
           emailController.text = "${dataAPi.data!.email}";
-          final images = dataAPi.data!.image;
+          final images =
+              "http://192.168.1.8/uploaded_files/${dataAPi.data!.image}";
           if (dataAPi.data!.siswa != null) {
             alamatController.text = "${dataAPi.data!.siswa.alamat}";
             noTelpController.text = "${dataAPi.data!.siswa.noTelp}";
@@ -54,10 +58,15 @@ class ProfileView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 15),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(images),
-                  maxRadius: 65,
-                ),
+                Obx(() {
+                  return CircleAvatar(
+                    radius: 60,
+                    backgroundImage: profilControl.image.value != null
+                        ? FileImage(profilControl.image.value!)
+                        : NetworkImage(images) as ImageProvider,
+                    child: profilControl.image.value == null ? null : null,
+                  );
+                }),
                 const SizedBox(height: 20),
                 TextFieldPage(
                   controller: userController,
@@ -93,14 +102,13 @@ class ProfileView extends StatelessWidget {
                     );
                     Data data = Data(
                       email: emailController.text,
-                      username: userController.text,
+                      name: userController.text,
                       siswa: siswas,
                     );
                     Profile update = Profile(
                       data: data,
                     );
-                    profilControl.updateProfile(update, id);
-                    _showMessageUpdate(context);
+                    await profilControl.updateProfile(update, id);
                   },
                   nameBtn: "Update",
                 ),
@@ -112,57 +120,57 @@ class ProfileView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 15),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(images),
-                  maxRadius: 65,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                Obx(() {
+                  return CircleAvatar(
+                    radius: 60,
+                    backgroundImage: profilControl.image.value != null
+                        ? FileImage(profilControl.image.value!)
+                        : NetworkImage(images) as ImageProvider,
+                    child: profilControl.image.value == null
+                        ? Center(child: Text("No Image"))
+                        : null,
+                  );
+                }),
+                const SizedBox(height: 20),
                 TextFieldPage(
                   controller: userController,
                   hintText: "Username",
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 TextFieldPage(
                   controller: emailController,
                   hintText: "Email",
-                  isEmailField: true,
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  height: 40,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 15),
                 MyButton(
-                    isLoading: false,
-                    onTap: () {
-                      // Get.to();
-                    },
-                    nameBtn: "Lengkapi Data Diri"),
-                const SizedBox(height: 10),
+                  onTap: () async {
+                    final pickedFile =
+                        await profilControl.pickImageFromGallery();
+                    if (pickedFile != null) {
+                      profilControl.setImage(File(pickedFile.path));
+                    } else {
+                      print('No image selected.');
+                    }
+                  },
+                  nameBtn: "Unggah Foto",
+                  isLoading: false,
+                ),
+                const SizedBox(height: 15),
                 MyButton(
-                    isLoading: false,
-                    onTap: () async {
-                      Data data = Data(
-                        email: emailController.text,
-                        username: userController.text,
-                        siswa: null,
-                      );
-                      Profile update = Profile(
-                        data: data,
-                      );
-                      profilControl.updateProfile(update, id);
-                      _showMessageUpdate(context);
-                    },
-                    nameBtn: "Update")
+                  isLoading: false,
+                  onTap: () async {
+                    Data data = Data(
+                      email: emailController.text,
+                      name: userController.text,
+                      siswa: null,
+                    );
+                    Profile update = Profile(
+                      data: data,
+                    );
+                    await profilControl.updateProfile(update, id);
+                  },
+                  nameBtn: "Update",
+                ),
               ],
             );
           }

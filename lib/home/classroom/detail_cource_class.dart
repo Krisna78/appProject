@@ -10,7 +10,7 @@ import 'package:project_team_3/home/cources/materiCource.dart';
 import 'package:project_team_3/models/cource/cource.dart';
 
 class DetailCourceView extends StatefulWidget {
-  final int id_cource;
+  final String id_cource;
   DetailCourceView({
     super.key,
     required this.id_cource,
@@ -207,9 +207,11 @@ class _DetailCourceViewState extends State<DetailCourceView> {
               ),
               SizedBox(height: 12),
               if (contentIndex == 0)
-                MateriCource()
+                MateriCource(
+                  id: "",
+                )
               else if (contentIndex == 1)
-                DescriptionCource()
+                DescriptionCource(valueDescription: "")
               else
                 JadwalCource(),
               SizedBox(height: 20),
