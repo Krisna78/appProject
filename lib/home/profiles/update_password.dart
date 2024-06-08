@@ -9,15 +9,17 @@ class UpdatePassword extends StatelessWidget {
   UpdatePassword({super.key, required this.id});
   final passwordControl = TextEditingController();
   final confirmControl = TextEditingController();
-  final oldPassControl = TextEditingController();
   final updateControl = Get.find<UpdateProfile>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Ubah Password"),
+      ),
       body: SafeArea(
         child: Container(
+          padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -32,16 +34,26 @@ class UpdatePassword extends StatelessWidget {
               const SizedBox(height: 15),
               MyButton(
                   onTap: () async {
+                    if (passwordControl.text.isEmpty || confirmControl.text.isEmpty) {
+                      Get.snackbar(
+                        'Error',
+                        'Password tidak boleh kosong',
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      return;
+                    }
+
                     if (passwordControl.text != confirmControl.text) {
                       Get.snackbar(
                         'Error',
                         'Password baru dan konfirmasi password tidak cocok',
                         snackPosition: SnackPosition.BOTTOM,
                       );
-                    } else {
-                      updateControl.updatePassword(
-                          context, id, confirmControl.text);
+                      return;
                     }
+
+                    await updateControl.updatePassword(
+                        context, id, confirmControl.text);
                   },
                   nameBtn: "Ubah Password",
                   isLoading: false),

@@ -29,6 +29,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
   final profilControl = Get.find<UpdateProfile>();
   final authControl = Get.find<AuthController>();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +61,9 @@ class _ProfileUsersState extends State<ProfileUsers> {
                     children: [
                       CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage("http://192.168.43.151/uploaded_files/"+widget.user.image),
+                        backgroundImage: NetworkImage(
+                            "http://192.168.1.8/uploaded_files/" +
+                                widget.user.image),
                       ),
                       const SizedBox(
                         width: 15,

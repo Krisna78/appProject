@@ -45,8 +45,8 @@ class TextFieldPage extends StatelessWidget {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "Mohon isi bidang ini";
-              // } else if (value.length < 8) {
-              //   return "$hintText harus minimal 8 karakter";
+                // } else if (value.length < 8) {
+                //   return "$hintText harus minimal 8 karakter";
               } else if (isEmailField && !isEmail(value.trim())) {
                 return "Format email harus menggunakan '@'";
               }

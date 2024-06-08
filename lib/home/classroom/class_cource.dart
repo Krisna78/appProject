@@ -6,7 +6,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:project_team_3/home/classroom/detail_cource_class.dart';
 
 class ClassCource extends StatefulWidget {
-  const ClassCource({super.key});
+  ClassCource({super.key});
 
   @override
   State<ClassCource> createState() => _ClassCourceState();
@@ -22,13 +22,13 @@ class _ClassCourceState extends State<ClassCource> {
       ),
       body: GestureDetector(
         onTap: () {
-          Get.to(() => DetailCourceView(id_cource: 1));
+          Get.to(() => DetailCourceView(id_cource: "1"));
         },
         child: Column(
           children: [
             GestureDetector(
               onTap: () {
-                Get.to(() => DetailCourceView(id_cource: 1));
+                Get.to(() => DetailCourceView(id_cource: "1"));
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),

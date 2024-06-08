@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DescriptionCource extends StatelessWidget {
-  const DescriptionCource({super.key});
+  final String valueDescription;
+  DescriptionCource({super.key, required this.valueDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class DescriptionCource extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            "Isi description",
+            valueDescription,
             style: TextStyle(fontSize: 16),
           ),
         ],

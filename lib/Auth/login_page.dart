@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_team_3/Auth/forgot_password.dart';
 import 'package:project_team_3/component/button.dart';
 import 'package:project_team_3/component/textfield.dart';
 import 'package:project_team_3/component/textfield_password.dart';
@@ -56,8 +57,22 @@ class LoginPage extends GetView<AuthController> {
                     controller: passwordSignInController,
                     hintText: "Password",
                   ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => AuthUpdatePassword());
+                          },
+                          child: Text("Lupa Passwrod?"),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Obx(() {
                     return MyButton(

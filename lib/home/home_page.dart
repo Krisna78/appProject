@@ -253,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                                 childAspectRatio: 0.6,
                               ),
                               // itemCount: dataAPI.data!.length,
-                              itemCount: 3,
+                              itemCount: dataAPI.data!.length,
                               itemBuilder: (context, index) {
                                 final datum = dataAPI.data![index];
                                 return GestureDetector(
