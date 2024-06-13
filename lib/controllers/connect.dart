@@ -1,1 +1,1 @@
-const APINum = "192.168.1.8:80";
+const APINum = "codinggo.my.id";

@@ -6,13 +6,54 @@ import 'package:http/http.dart' as http;
 import 'package:project_team_3/models/detail_cource/detail_cource.dart';
 import 'package:project_team_3/models/kelas/kelas.dart';
 import 'package:project_team_3/models/materi/materi.dart';
+import 'package:video_player/video_player.dart';
 
 class CourceController extends GetxController {
   final String apiConnect = APINum;
   final courceSearch = Cource().obs;
+  late VideoPlayerController _videoController;
+  late Future<void> _initializeVideoPlayerFuture;
+  bool _isFullScreen = false;
+
+  void initializeVideo(String videoUrl) {
+    _videoController = VideoPlayerController.network(videoUrl);
+    _initializeVideoPlayerFuture = _videoController.initialize();
+    _videoController.setLooping(true);
+  }
+
+  void disposeVideo() {
+    _videoController.dispose();
+  }
+
+  void playPauseVideo() {
+    if (_videoController.value.isPlaying) {
+      _videoController.pause();
+    } else {
+      _videoController.play();
+    }
+  }
+
+  void skipBackward() {
+    _videoController.seekTo(
+        Duration(seconds: _videoController.value.position.inSeconds - 10));
+  }
+
+  void skipForward() {
+    _videoController.seekTo(
+        Duration(seconds: _videoController.value.position.inSeconds + 10));
+  }
+
+  void toggleFullScreen() {
+    _isFullScreen = !_isFullScreen;
+    _isFullScreen ? _videoController.pause() : _videoController.play();
+  }
+
+  VideoPlayerController get videoController => _videoController;
+  Future<void> get initializeVideoPlayerFuture => _initializeVideoPlayerFuture;
+
   Future<Cource> showData() async {
     try {
-      final String apiUrl = "http://$apiConnect/api/apiCource";
+      final String apiUrl = "https://$apiConnect/api/apiCource";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
@@ -30,7 +71,7 @@ class CourceController extends GetxController {
 
   Future<DetailCource> detailCource(String id) async {
     try {
-      final String apiUrl = "http://$apiConnect/api/apiCource/$id";
+      final String apiUrl = "https://$apiConnect/api/apiCource/$id";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         final jsonData =
@@ -50,7 +91,7 @@ class CourceController extends GetxController {
   Future<Cource> searchCource(String query) async {
     try {
       final String apiUrl =
-          "http://$apiConnect/api/search/cource?search=$query";
+          "https://$apiConnect/api/search/cource?search=$query";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
@@ -68,7 +109,7 @@ class CourceController extends GetxController {
 
   Future<Materi> viewMateri(String id) async {
     try {
-      final String apiUrl = "http://$apiConnect/api/apiCource/materi";
+      final String apiUrl = "https://$apiConnect/api/apiCource/materi";
       final response =
           await http.post(Uri.parse(apiUrl), body: {"cource_id": id});
       final jsonData = json.decode(response.body);
@@ -85,7 +126,7 @@ class CourceController extends GetxController {
 
   Future<Kelas> classRoom(String id) async {
     try {
-      final String apiUrl = "http://$apiConnect/api/apiClass";
+      final String apiUrl = "https://$apiConnect/api/apiClass";
       final response =
           await http.post(Uri.parse(apiUrl), body: {"id_user": id});
       if (response.statusCode == 200) {

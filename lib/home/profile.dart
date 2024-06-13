@@ -1,12 +1,9 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project_team_3/component/small_card.dart';
 import 'package:project_team_3/controllers/AuthController.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
-import 'package:project_team_3/home/classroom/class_cource.dart';
+import 'package:project_team_3/home/class_room_page.dart';
 import 'package:project_team_3/home/profiles/updateProfile.dart';
 import 'package:project_team_3/home/profiles/update_password.dart';
 import 'package:project_team_3/models/users.dart';
@@ -62,7 +59,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
                       CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(
-                            "http://192.168.1.8/uploaded_files/" +
+                            "https://codinggo.my.id/uploaded_files/" +
                                 widget.user.image),
                       ),
                       const SizedBox(
@@ -167,9 +164,9 @@ class _ProfileUsersState extends State<ProfileUsers> {
                   SmallCard(
                     title: "Kelas Saya",
                     detailTitle: "Lihat kelas yang anda lakukan saat ini",
-                    iconProfile: Icon(Icons.class_rounded),
+                    iconProfile: const Icon(Icons.class_rounded),
                     onTap: () {
-                      Get.to(() => ClassCource());
+                      Get.to(() => ClassroomPage(id: widget.id));
                     },
                   ),
                   const SizedBox(height: 10),

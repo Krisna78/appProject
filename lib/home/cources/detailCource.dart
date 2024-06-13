@@ -4,10 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_team_3/controllers/CourceController.dart';
-import 'package:project_team_3/home/cources/commentCource.dart';
 import 'package:project_team_3/home/cources/descriptionCource.dart';
 import 'package:project_team_3/home/cources/materiCource.dart';
-// import 'package:project_team_3/models/cource/cource.dart';
 
 class DetailCourceView extends StatefulWidget {
   final String id_cource;
@@ -272,24 +270,6 @@ class _DetailCourceViewState extends State<DetailCourceView> {
                 ? MateriCource(id: courseData.data!.idCource)
                 : DescriptionCource(
                     valueDescription: courseData.data!.deskripsi),
-            // SizedBox(height: 20),
-            // Text(
-            //   "Ulasan",
-            //   style: TextStyle(
-            //     fontSize: 24,
-            //     fontWeight: FontWeight.w600,
-            //   ),
-            // ),
-            // SizedBox(height: 20),
-            // SizedBox(
-            //   height: 300,
-            //   child: ListView.builder(
-            //     itemCount: 2,
-            //     itemBuilder: (context, index) {
-            //       return CommentCource();
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),

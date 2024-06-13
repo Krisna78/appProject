@@ -109,7 +109,7 @@ class AuthController extends GetxController {
       return;
     }
     try {
-      final String apiUrl = "http://$apiConnect/api/apiTest/login";
+      final String apiUrl = "https://$apiConnect/api/apiTest/login";
       final responses = await http.post(Uri.parse(apiUrl),
           body: {'email': email, 'password': password});
       if (responses.statusCode == 200 || responses.statusCode == 201) {
@@ -141,7 +141,7 @@ class AuthController extends GetxController {
       BuildContext context) async {
     isLoading.value = true;
     try {
-      final String apiUrl = "http://$apiConnect/api/apiTest";
+      final String apiUrl = "https://$apiConnect/api/apiTest";
       var request = http.MultipartRequest("POST", Uri.parse(apiUrl));
       request.fields['name'] = username;
       request.fields['email'] = email;
