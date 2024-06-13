@@ -18,119 +18,67 @@ class ClassroomPage extends StatelessWidget {
         centerTitle: true,
         title: Text("Kelas Saya"),
       ),
-      body: GestureDetector(
-          onTap: () {
-            Get.to(() => DetailCourceView(id_cource: id));
-          },
-          child: Column(children: [
-            FutureBuilder(
-              future: classControl.classRoom(id),
-              builder: (context, snapshot) {
-                if (ConnectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text("Error : ${snapshot.error}"));
-                } else {
-                  final dataAPI = snapshot.data;
-                  print(id);
-                  if (dataAPI != null && dataAPI.data != null) {
-                    return ListView.builder(
-                      itemCount: 1,
-                      itemBuilder: (context, index) {
-                        final datum = dataAPI.data![index];
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 15),
-                          padding: const EdgeInsets.all(12),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 2,
-                                spreadRadius: 3,
-                                color: Colors.grey.withOpacity(0.3),
-                                offset: Offset(0, 0),
-                              ),
-                            ],
+      body: FutureBuilder(
+        future: classControl.classRoom(id),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else if (snapshot.hasData) {
+            final dataAPI = snapshot.data;
+            if (dataAPI != null &&
+                dataAPI.data != null &&
+                dataAPI.data!.isNotEmpty) {
+              return ListView.builder(
+                itemCount: dataAPI.data!.length,
+                itemBuilder: (context, index) {
+                  final datum = dataAPI.data![index];
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() =>
+                          DetailCourceView(id_cource: "${datum.playlistId}"));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 15),
+                      padding: const EdgeInsets.all(12),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 2,
+                            spreadRadius: 3,
+                            color: Colors.grey.withOpacity(0.3),
+                            offset: Offset(0, 0),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${datum.playlistTitle}",
-                                style: TextStyle(
-                                    fontSize: 21, fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 6),
-                              Row(
-                                children: [
-                                  Container(
-                                    height: 35,
-                                    width: 35,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Color.fromARGB(255, 255, 127, 63),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        "8",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  const Text(
-                                    "Make Form HTML",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: LinearPercentIndicator(
-                                      width: MediaQuery.of(context).size.width -
-                                          100,
-                                      animation: true,
-                                      lineHeight: 15,
-                                      animationDuration: 1000,
-                                      percent: 0.7,
-                                      barRadius: const Radius.circular(10),
-                                      backgroundColor:
-                                          Color.fromARGB(255, 53, 109, 192),
-                                      progressColor:
-                                          Color.fromARGB(255, 255, 127, 63),
-                                    ),
-                                  ),
-                                  const Text("70%",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400)),
-                                ],
-                              ),
-                            ],
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${datum.playlistTitle}",
+                            style: const TextStyle(
+                                fontSize: 21, fontWeight: FontWeight.w600),
                           ),
-                        );
-                      },
-                    );
-                  } else {
-                    return Center(
-                      child: Text("Data Tidak ada"),
-                    );
-                  }
-                }
-              },
-            )
-          ])),
+                          const SizedBox(height: 6),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return Center(child: Text("Data Tidak ada"));
+            }
+          } else {
+            return Center(child: Text("Data Tidak ada"));
+          }
+        },
+      ),
     );
   }
 }

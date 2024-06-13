@@ -1,13 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:project_team_3/controllers/CourceController.dart';
-import 'package:project_team_3/home/classroom/jadwal_kursus.dart';
-import 'package:project_team_3/home/cources/commentCource.dart';
-import 'package:project_team_3/home/cources/descriptionCource.dart';
-import 'package:project_team_3/home/cources/materiCource.dart';
-import 'package:project_team_3/models/cource/cource.dart';
+import 'package:project_team_3/home/classroom/tutorial.dart';
 
 class DetailCourceView extends StatefulWidget {
   final String id_cource;
@@ -15,18 +10,15 @@ class DetailCourceView extends StatefulWidget {
     super.key,
     required this.id_cource,
   });
-  final detailCourceControl = Get.find<CourceController>();
-  final NumberFormat formatter = NumberFormat.currency(
-    locale: 'id_ID',
-    symbol: 'Rp',
-    decimalDigits: 0,
-  );
+  final viewMateriControl = Get.find<CourceController>();
+
   @override
   State<DetailCourceView> createState() => _DetailCourceViewState();
 }
 
 class _DetailCourceViewState extends State<DetailCourceView> {
-  int contentIndex = 0;
+  var courseData;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,179 +36,213 @@ class _DetailCourceViewState extends State<DetailCourceView> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      blurRadius: 3,
-                      spreadRadius: 3,
-                      offset: Offset(0, 0),
-                    )
-                  ],
-                ),
-                child: Image.asset("assets/images/logo_biru2.png"),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Basic HTML",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: Colors.orange,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.orange,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.orange,
-                  ),
-                  Icon(
-                    Icons.star,
-                    color: Colors.orange,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.orange,
-                  ),
-                  Text(
-                    "4.5 (110)",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
+      body: courseData == null
+          ? FutureBuilder(
+              future:
+                  Get.find<CourceController>().detailCource(widget.id_cource),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text("Error: ${snapshot.error}"));
+                } else if (snapshot.hasData) {
+                  courseData = snapshot.data;
+                  if (courseData != null && courseData.data != null) {
+                    return buildDetailContent();
+                  } else {
+                    return Center(child: Text("Tidak Ada Data"));
+                  }
+                } else {
+                  return Center(child: Text("Tidak Ada Data"));
+                }
+              },
+            )
+          : buildDetailContent(),
+    );
+  }
+
+  Widget buildDetailContent() {
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    blurRadius: 3,
+                    spreadRadius: 3,
+                    offset: Offset(0, 0),
+                  )
                 ],
               ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/logo_biru2.png"),
-                    maxRadius: 28,
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Budi Handayani",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        "Front End Web Developer",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              child: CachedNetworkImage(
+                imageUrl:
+                    "https://codinggo.my.id/uploaded_files/${courseData.data!.thumb}",
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
               ),
-              SizedBox(
-                height: 25,
+            ),
+            SizedBox(height: 10),
+            Text(
+              "${courseData.data!.title}",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                CircleAvatar(
+                  maxRadius: 28,
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://codinggo.my.id/uploaded_files/${courseData.data!.tutor!.image}",
+                      fit: BoxFit.cover,
+                      width: 60,
+                      height: 60,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          contentIndex = 0;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: contentIndex == 0
-                            ? Color.fromARGB(255, 255, 127, 63)
-                            : Color.fromARGB(255, 53, 109, 192),
-                      ),
-                      child: Text(
-                        "Materi",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    Text(
+                      courseData.data!.tutor!.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(width: 12),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          contentIndex = 2;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: contentIndex == 2
-                            ? Color.fromARGB(255, 255, 127, 63)
-                            : Color.fromARGB(255, 53, 109, 192),
-                      ),
-                      child: Text(
-                        "Jadwal",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          contentIndex = 1;
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: contentIndex == 1
-                            ? Color.fromARGB(255, 255, 127, 63)
-                            : Color.fromARGB(255, 53, 109, 192),
-                      ),
-                      child: Text(
-                        "Desciption",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    Text(
+                      courseData.data!.tutor!.profession,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
                 ),
+              ],
+            ),
+            const SizedBox(height: 25),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    blurRadius: 3,
+                    spreadRadius: 3,
+                    offset: Offset(0, 0),
+                  )
+                ],
               ),
-              SizedBox(height: 12),
-              if (contentIndex == 0)
-                MateriCource(
-                  id: "",
-                )
-              else if (contentIndex == 1)
-                DescriptionCource(valueDescription: "")
-              else
-                JadwalCource(),
-              SizedBox(height: 20),
-            ],
-          ),
+              padding: EdgeInsets.all(12),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FutureBuilder(
+                      future: widget.viewMateriControl
+                          .viewMateri(courseData.data!.idCource),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text("Error : ${snapshot.error}"),
+                          );
+                        } else {
+                          final dataApi = snapshot.data;
+                          if (dataApi != null && dataApi.data!.isNotEmpty) {
+                            return ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: dataApi.data!.length,
+                              itemBuilder: (context, index) {
+                                final datum = dataApi.data![index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                      () => MateriTutorial(
+                                        id: "${datum.id}",
+                                        nameContent: "${datum.title}",
+                                        video: "${datum.video}",
+                                        deskripsi: "${datum.description}",
+                                      ),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 35,
+                                        width: 35,
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromARGB(255, 255, 127, 63),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "${index + 1}",
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Flexible(
+                                        child: Text(
+                                          datum.title!,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          softWrap: true,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: Text("Materi masih belum ada"),
+                            );
+                          }
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

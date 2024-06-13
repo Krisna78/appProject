@@ -6,8 +6,8 @@ class CommentCource extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 21),
-      padding: EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 21),
+      padding: const EdgeInsets.all(12),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,

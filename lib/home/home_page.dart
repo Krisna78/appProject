@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:project_team_3/component/card_cource.dart';
-import 'package:project_team_3/component/listHorizontal.dart';
 import 'package:project_team_3/controllers/CourceController.dart';
 import 'package:project_team_3/controllers/updateProfileController.dart';
 import 'package:project_team_3/home/cources/detailCource.dart';
@@ -288,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                                               BorderRadius.circular(8),
                                           child: CachedNetworkImage(
                                             imageUrl:
-                                                "http://192.168.1.8/uploaded_files/${datum.thumb}",
+                                                "https://codinggo.my.id/uploaded_files/${datum.thumb}",
                                             height: MediaQuery.of(context)
                                                     .size
                                                     .height *

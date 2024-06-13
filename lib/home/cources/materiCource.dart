@@ -48,7 +48,9 @@ class MateriCource extends StatelessWidget {
                         return Row(
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                print(datum.id);
+                              },
                               child: Container(
                                 height: 35,
                                 width: 35,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_team_3/Auth/login_page.dart';
 import 'package:project_team_3/controllers/connect.dart';
 import 'package:project_team_3/models/profile/profile.dart';
 
@@ -52,10 +53,21 @@ class UpdateProfile extends GetxController {
     ).show();
   }
 
+  void _showMessageUpdatePassword(BuildContext context) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.success,
+      animType: AnimType.topSlide,
+      title: 'Data Berhasil di update',
+      btnCancelOnPress: () {},
+      btnOkOnPress: () {},
+    ).show();
+  }
+
   Future<void> updateProfile(Profile profileSiswa, String id_data) async {
     try {
       final String apiUrl =
-          "http://$apiConnect/api/apiTest/profile/update/$id_data";
+          "https://$apiConnect/api/apiTest/profile/update/$id_data";
       var request = http.MultipartRequest('POST', Uri.parse(apiUrl));
 
       // Tambahkan field teks
@@ -95,7 +107,7 @@ class UpdateProfile extends GetxController {
 
   Future<Profile> showDataProfile(String id) async {
     try {
-      final String apiUrl = "http://$apiConnect/api/apiTest/profile/$id";
+      final String apiUrl = "https://$apiConnect/api/apiTest/profile/$id";
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonData = jsonDecode(response.body);
@@ -112,7 +124,7 @@ class UpdateProfile extends GetxController {
   Future<void> updatePassword(
       BuildContext context, String id, String newPass) async {
     try {
-      final String apiUrl = "http://$apiConnect/api/apiTest/updatePassword/$id";
+      final String apiUrl = "https://$apiConnect/api/apiTest/updatePassword/$id";
       final response =
           await http.post(Uri.parse(apiUrl), body: {"password": newPass});
       final jsonData = json.decode(response.body);
@@ -129,7 +141,7 @@ class UpdateProfile extends GetxController {
   Future<void> updatePasswordByEmail(String email, String newPass) async {
     try {
       final String apiUrl =
-          "http://$apiConnect/api/apiTest/updatePasswordByEmail";
+          "https://$apiConnect/api/apiTest/updatePasswordByEmail";
       final response = await http.post(
         Uri.parse(apiUrl),
         body: {

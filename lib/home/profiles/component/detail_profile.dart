@@ -49,7 +49,7 @@ class ProfileView extends StatelessWidget {
           userController.text = "${dataAPi.data!.name}";
           emailController.text = "${dataAPi.data!.email}";
           final images =
-              "http://192.168.1.8/uploaded_files/${dataAPi.data!.image}";
+              "https://codinggo.my.id/uploaded_files/${dataAPi.data!.image}";
           if (dataAPi.data!.siswa != null) {
             alamatController.text = "${dataAPi.data!.siswa.alamat}";
             noTelpController.text = "${dataAPi.data!.siswa.noTelp}";
