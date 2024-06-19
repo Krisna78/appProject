@@ -154,7 +154,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
                   SizedBox(height: 10),
                   SmallCard(
                     title: "Ubah Password",
-                    detailTitle: "Ubah dan perkuat akun anda",
+                    detailTitle: "Ubah password untuk memperkuat akun anda",
                     iconProfile: Icon(Icons.lock),
                     onTap: () {
                       Get.to(() => UpdatePassword(id: widget.id));
@@ -163,7 +163,7 @@ class _ProfileUsersState extends State<ProfileUsers> {
                   SizedBox(height: 10),
                   SmallCard(
                     title: "Kelas Saya",
-                    detailTitle: "Lihat kelas yang anda lakukan saat ini",
+                    detailTitle: "Lihat kursus yang anda ikuti",
                     iconProfile: const Icon(Icons.class_rounded),
                     onTap: () {
                       Get.to(() => ClassroomPage(id: widget.id));
