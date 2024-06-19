@@ -14,7 +14,7 @@ class UpdateProfileForm extends StatelessWidget {
   UpdateProfileForm({super.key, required this.id});
   final profilControl = Get.find<UpdateProfile>();
 
-  List<String> dropdownOptions = ['Male', 'Female', 'No Gender'];
+  List<String> dropdownOptions = ['Laki-laki', 'Perempuan', 'Tidak ingin menyebutkan'];
 
   @override
   Widget build(BuildContext context) {
