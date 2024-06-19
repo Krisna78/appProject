@@ -27,7 +27,7 @@ class UpdatePassword extends StatelessWidget {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
               const SizedBox(height: 15),
               PasswordInputField(
-                  controller: passwordControl, hintText: "Password baru"),
+                  controller: passwordControl, hintText: "Password Baru"),
               const SizedBox(height: 15),
               PasswordInputField(
                   controller: confirmControl, hintText: "Konfirmasi Password"),
@@ -46,7 +46,7 @@ class UpdatePassword extends StatelessWidget {
                     if (passwordControl.text != confirmControl.text) {
                       Get.snackbar(
                         'Error',
-                        'Password baru dan konfirmasi password tidak cocok',
+                        'Password Baru dan Konfirmasi Password tidak cocok',
                         snackPosition: SnackPosition.BOTTOM,
                       );
                       return;
