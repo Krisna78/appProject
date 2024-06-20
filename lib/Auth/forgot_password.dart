@@ -1,4 +1,3 @@
-// auth_update_password.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_team_3/component/button.dart';

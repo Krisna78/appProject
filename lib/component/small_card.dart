@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 
 class SmallCard extends StatelessWidget {
   final String title;
@@ -27,7 +25,7 @@ class SmallCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 25,
-                  backgroundColor: Color(0xFFFF9843),
+                  backgroundColor: const Color(0xFFFF9843),
                   child: iconProfile,
                 ),
                 const SizedBox(

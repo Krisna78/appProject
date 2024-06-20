@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:project_team_3/Auth/login_page.dart';
 import 'package:project_team_3/controllers/connect.dart';
 import 'package:project_team_3/models/profile/profile.dart';
 
